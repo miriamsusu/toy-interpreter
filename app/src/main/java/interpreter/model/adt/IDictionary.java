@@ -1,4 +1,4 @@
 package interpreter.model.adt;
 
-public interface IDictionary {
+public interface IDictionary<K,V> {
 }
