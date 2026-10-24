@@ -1,4 +1,15 @@
 package interpreter.model.stmt;
 
-public class NopStmt {
+import interpreter.exceptions.MyException;
+import interpreter.model.PrgState;
+
+public class NopStmt implements IStmt{
+    @Override
+    public PrgState execute(PrgState prgState) throws MyException {
+        return prgState;
+    }
+    @Override
+    public String toString(){
+        return "nop";
+    }
 }
