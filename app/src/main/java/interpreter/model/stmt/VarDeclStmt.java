@@ -9,7 +9,7 @@ public record VarDeclStmt(String name, IType type) implements IStmt {
     @Override
     public PrgState execute(PrgState prgState) throws MyException {
         var symTable = prgState.getSymTable();
-        if(!symTable.isDefined(name))
+        if(symTable.isDefined(name))
             throw new StatementException("variable " + name + " is already declared");
         symTable.put(name, type.defaultValue());
         return prgState;

@@ -3,9 +3,6 @@ package interpreter.model.adt;
 import interpreter.exceptions.ADTException;
 
 import java.util.ArrayDeque;
-import interpreter.exceptions.ADTException;
-
-import java.util.ArrayDeque;
 import java.util.Deque;
 
 public class MyStack<T> implements IStack<T> {

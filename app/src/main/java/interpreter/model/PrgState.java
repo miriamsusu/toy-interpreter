@@ -21,4 +21,9 @@ public class PrgState {
     public IDictionary<String, IValue> getSymTable() { return symTable; }
     public IList<IValue> getOut() { return out; }
     public IStmt getOriginalProgram() { return originalProgram; }
+
+    @Override
+    public String toString() {
+        return "ExeStack: " + exeStack + "\nSymTable:\n" + symTable + "Out: " + out + "\n";
+    }
 }
