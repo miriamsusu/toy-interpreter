@@ -10,15 +10,16 @@ public class Controller {
     private final IRepository repo;
     private boolean displayFlag = true;
 
-    public Controller(IRepository repo) {
+    public Controller(IRepository repo, boolean displayFlag) {
         this.repo = repo;
+        this.displayFlag=displayFlag;
     }
 
     public void setDisplayFlag(boolean displayFlag) {
         this.displayFlag = displayFlag;
     }
 
-    private void display(String text) {
+    private void display(PrgState text) {
         if (displayFlag)
             System.out.println(text);
     }
@@ -32,10 +33,10 @@ public class Controller {
 
     public void allStep() throws MyException {
         PrgState prg = repo.getCrtPrg();
-        display(prg.toString());
+        display(prg);
         while (!prg.getExeStack().isEmpty()) {
             oneStep(prg);
-            display(prg.toString());
+            display(prg);
         }
     }
 }
