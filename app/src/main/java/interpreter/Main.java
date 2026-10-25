@@ -9,7 +9,7 @@ import interpreter.model.stmt.IStmt;
 import interpreter.repository.Repository;
 import interpreter.view.Examples;
 
-public class App {
+public class Main {
     public static void main(String[] args) {
         int i = 1;
         for (IStmt program : Examples.ALL) {
