@@ -15,7 +15,7 @@ public class Main {
         for (IStmt program : Examples.ALL) {
             System.out.println("===== Example " + i++ + ": " + program);
             try {
-                PrgState state = new PrgState(new MyStack<>(), new MyDictionary<>(), new MyList<>(), program);
+                PrgState state = PrgState.of(program);
                 Controller controller = new Controller(new Repository(state),true);
                 controller.allStep();
                 System.out.println("Output: " + state.getOut());

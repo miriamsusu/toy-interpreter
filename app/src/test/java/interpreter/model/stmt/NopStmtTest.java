@@ -16,7 +16,7 @@ class NopStmtTest {
 
     @BeforeEach
     void setUp() throws MyException {
-        state = new PrgState(new MyStack<>(), new MyDictionary<>(), new MyList<>(), new NopStmt());
+        state = PrgState.of(new NopStmt());
         state.getExeStack().pop();   // remove the placeholder program
         state.getSymTable().put("a", new IntValue(3));
         state.getOut().add(new IntValue(7));

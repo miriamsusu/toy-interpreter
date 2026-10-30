@@ -22,7 +22,7 @@ class AssignStmtTest {
 
     @BeforeEach
     void setUp() throws MyException {
-        state = new PrgState(new MyStack<>(), new MyDictionary<>(), new MyList<>(), new NopStmt());
+        state = PrgState.of(new NopStmt());
         state.getSymTable().put("a", new IntValue(0));
     }
 
