@@ -23,7 +23,7 @@ class PrintStmtTest {
     @BeforeEach
     void setUp() throws MyException {
         state = new PrgState(new MyStack<>(), new MyDictionary<>(), new MyList<>(), new NopStmt());
-        state.getExeStack().pop();   // remove the placeholder program
+        state.getExeStack().pop();
     }
 
     @Test

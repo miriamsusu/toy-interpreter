@@ -6,7 +6,7 @@ import interpreter.model.PrgState;
 import interpreter.model.exp.IExp;
 import interpreter.model.value.IValue;
 
-public record AssignStmt(String id, IExp exp) implements IStmt { // S2
+public record AssignStmt(String id, IExp exp) implements IStmt {
     @Override
     public PrgState execute(PrgState state) throws MyException {
         var symTable = state.getSymTable();
