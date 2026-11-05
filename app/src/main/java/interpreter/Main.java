@@ -8,20 +8,25 @@ import interpreter.model.adt.MyStack;
 import interpreter.model.stmt.IStmt;
 import interpreter.repository.Repository;
 import interpreter.view.Examples;
+import interpreter.view.ExitCommand;
+import interpreter.view.RunExampleCommand;
+import interpreter.view.TextMenu;
+
+import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
-        int i = 1;
-        for (IStmt program : Examples.ALL) {
-            System.out.println("===== Example " + i++ + ": " + program);
-            try {
-                PrgState state = PrgState.of(program);
-                Controller controller = new Controller(new Repository(state),true);
-                controller.allStep();
-                System.out.println("Output: " + state.getOut());
-            } catch (Exception e) {
-                System.out.println("Error: " + e.getMessage());
-            }
+        List<IStmt> programs = List.of(Examples.EX1, Examples.EX2, Examples.EX3,
+                Examples.EX4);
+        TextMenu menu = new TextMenu();
+        menu.addCommand(new ExitCommand("0", "exit"));
+        for (int i = 0; i < programs.size(); i++) {
+            IStmt program = programs.get(i);
+            var repo = new Repository(PrgState.of(program), "log" + (i + 1) + ".txt");
+            var controller = new Controller(repo, true);
+            menu.addCommand(new RunExampleCommand(String.valueOf(i + 1),
+                    program.toString(), controller));
         }
+        menu.show();
     }
 }
