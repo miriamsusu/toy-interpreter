@@ -14,24 +14,28 @@ import interpreter.model.value.IntValue;
 import interpreter.repository.Repository;
 import interpreter.view.Examples;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.io.TempDir;
+
+import java.nio.file.Path;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class ControllerTest {
-
+    @TempDir
+    static Path dir;
     private static PrgState newState(IStmt program) {
         return PrgState.of(program);
     }
 
     private static PrgState run(IStmt program) throws MyException {
         PrgState state = newState(program);
-        new Controller(new Repository(state), false).allStep();   // display off
+        new Controller(new Repository(state, dir.resolve("log.txt").toString()), false).allStep();   // display off
         return state;
     }
 
     @Test
     void example1PrintsTwo() throws MyException {
-        PrgState state = run(Examples.ex1);
+        PrgState state = run(Examples.EX1);
         assertTrue(state.getExeStack().isEmpty());
         assertEquals(1, state.getOut().size());
         assertEquals(new IntValue(2), state.getOut().get(0));
@@ -39,28 +43,28 @@ class ControllerTest {
 
     @Test
     void example2PrintsEighteen() throws MyException {
-        PrgState state = run(Examples.ex2);
+        PrgState state = run(Examples.EX2);
         assertTrue(state.getExeStack().isEmpty());
         assertEquals(new IntValue(18), state.getOut().get(0));
     }
 
     @Test
     void example3PrintsTwo() throws MyException {
-        PrgState state = run(Examples.ex3);
+        PrgState state = run(Examples.EX3);
         assertTrue(state.getExeStack().isEmpty());
         assertEquals(new IntValue(2), state.getOut().get(0));
     }
 
     @Test
     void example1HasFinalSymTable() throws MyException {
-        PrgState state = run(Examples.ex1);
+        PrgState state = run(Examples.EX1);
         assertEquals(new IntValue(2), state.getSymTable().lookup("v"));
     }
 
     @Test
     void oneStepExecutesOnlyTheTopStatement() throws MyException {
         PrgState state = newState(new NopStmt());
-        Controller controller = new Controller(new Repository(state), false);
+        Controller controller = new Controller(new Repository(state,dir.resolve("log.txt").toString()), false);
         controller.oneStep(state);
         assertTrue(state.getExeStack().isEmpty());
     }
@@ -69,7 +73,7 @@ class ControllerTest {
     void oneStepOnEmptyStackThrows() throws MyException {
         PrgState state = newState(new NopStmt());
         state.getExeStack().pop();   // empty the stack
-        Controller controller = new Controller(new Repository(state), false);
+        Controller controller = new Controller(new Repository(state,dir.resolve("log.txt").toString()), false);
         var ex = assertThrows(StatementException.class, () -> controller.oneStep(state));
         assertEquals("program state stack is empty", ex.getMessage());
     }
