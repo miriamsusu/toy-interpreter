@@ -58,6 +58,16 @@ class FileStmtTest {
     }
 
     @Test
+    void anEqualFileNameFindsTheOpenFile() throws MyException {
+        // a different StringValue object with the same text must find the same FileTable entry
+        new OpenRFileStmt(file).execute(state);
+        var sameName = new ValueExp(new StringValue(fileName.val()));
+        new ReadFileStmt(sameName, "x").execute(state);
+        assertEquals(new IntValue(7), state.getSymTable().lookup("x"));
+        assertThrows(StatementException.class, () -> new OpenRFileStmt(sameName).execute(state));
+    }
+
+    @Test
     void openWithNonStringExpressionThrows() {
         IStmt open = new OpenRFileStmt(new ValueExp(new IntValue(1)));
         assertThrows(StatementException.class, () -> open.execute(state));

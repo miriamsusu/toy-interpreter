@@ -8,8 +8,10 @@ import interpreter.model.adt.MyList;
 import interpreter.model.adt.MyStack;
 import interpreter.model.type.BoolType;
 import interpreter.model.type.IntType;
+import interpreter.model.type.StringType;
 import interpreter.model.value.BoolValue;
 import interpreter.model.value.IntValue;
+import interpreter.model.value.StringValue;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -40,6 +42,12 @@ class VarDeclStmtTest {
     void boolDefaultsToFalse() throws MyException {
         new VarDeclStmt("b", new BoolType()).execute(state);
         assertEquals(new BoolValue(false), state.getSymTable().lookup("b"));
+    }
+
+    @Test
+    void stringDefaultsToEmptyString() throws MyException {
+        new VarDeclStmt("s", new StringType()).execute(state);
+        assertEquals(new StringValue(""), state.getSymTable().lookup("s"));
     }
 
     @Test
