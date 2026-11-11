@@ -20,11 +20,11 @@ public record ReadFileStmt(IExp exp, String varName) implements IStmt {
         if (!symTable.lookup(varName).getType().equals(new IntType()))
             throw new StatementException("readFile: variable " + varName + " is not an int");
         if(!(exp.eval(state.getSymTable()) instanceof StringValue fileName)){
-            throw new StatementException("ReadFile: " + exp + " is not a string");
+            throw new StatementException("readFile: " + exp + " is not a string");
         }
         var fileTable=state.getFileTable();
         if(!fileTable.isDefined(fileName)){
-            throw new StatementException("ReadFile: "+fileName+" not in FileTable");
+            throw new StatementException("readFile: " + fileName + " is not open");
         }
         var reader=fileTable.lookup(fileName);
         int n;
@@ -43,6 +43,6 @@ public record ReadFileStmt(IExp exp, String varName) implements IStmt {
 
     @Override
     public String toString() {
-        return "readFile("+ exp + ","+varName+")";
+        return "readFile(" + exp + ", " + varName + ")";
     }
 }
