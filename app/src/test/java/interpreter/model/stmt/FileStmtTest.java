@@ -59,7 +59,6 @@ class FileStmtTest {
 
     @Test
     void anEqualFileNameFindsTheOpenFile() throws MyException {
-        // a different StringValue object with the same text must find the same FileTable entry
         new OpenRFileStmt(file).execute(state);
         var sameName = new ValueExp(new StringValue(fileName.val()));
         new ReadFileStmt(sameName, "x").execute(state);
@@ -86,7 +85,6 @@ class FileStmtTest {
         assertTrue(state.getFileTable().toMap().isEmpty());
     }
 
-    // ---------- readFile (S9) ----------
 
     @Test
     void readGivesTheNumbersInOrder() throws MyException {

@@ -10,7 +10,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 
-public record OpenRFileStmt(IExp exp) implements IStmt { // S8
+public record OpenRFileStmt(IExp exp) implements IStmt {
     @Override
     public PrgState execute(PrgState state) throws MyException {
         if (!(exp.eval(state.getSymTable()) instanceof StringValue fileName))
@@ -19,7 +19,6 @@ public record OpenRFileStmt(IExp exp) implements IStmt { // S8
         if (fileTable.isDefined(fileName))
             throw new StatementException("openRFile: " + fileName + " is already open");
         try {
-            // no try-with-resources: the file must stay open until closeRFile
             var reader = new BufferedReader(new FileReader(fileName.val()));
             fileTable.put(fileName, reader);
         } catch (IOException e) {

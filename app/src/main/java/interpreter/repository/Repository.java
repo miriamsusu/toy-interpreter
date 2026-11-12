@@ -26,7 +26,7 @@ public class Repository implements IRepository{
     @Override
     public void logPrgStateExec() throws MyException {
         try (var logFile = new PrintWriter(
-                new BufferedWriter(new FileWriter(logFilePath, true)))) { // append
+                new BufferedWriter(new FileWriter(logFilePath, true)))) {
             logFile.println(getCrtPrg().toLogString());
         } catch (IOException e) {
             throw new RepositoryException("cannot write the log file " + logFilePath

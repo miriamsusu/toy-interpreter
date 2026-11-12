@@ -20,7 +20,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class ControllerTest {
     @TempDir
-    Path dir;   // a new empty folder for every test
+    Path dir;
 
     private String logFile() {
         return dir.resolve("log.txt").toString();
