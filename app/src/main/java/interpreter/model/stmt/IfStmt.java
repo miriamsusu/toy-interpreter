@@ -12,7 +12,7 @@ public record IfStmt(IExp cond, IStmt thenS, IStmt elseS) implements IStmt {
 
     @Override
     public PrgState execute(PrgState prgState) throws MyException {
-        IValue val = cond.eval(prgState.getSymTable());
+        IValue val = cond.eval(prgState.getSymTable(), prgState.getHeap());
         if (!val.getType().equals(new BoolType())){
             throw new StatementException("Not a bool type");
         }

@@ -37,6 +37,8 @@ application {
 tasks.named<JavaExec>("run") {
     // Forward the keyboard to the program so the text menu can read input under ./gradlew run.
     standardInput = System.`in`
+    // Run from the project root, so test.in and the log files stay next to settings.gradle.kts.
+    workingDir = rootDir
 }
 
 tasks.named<Test>("test") {

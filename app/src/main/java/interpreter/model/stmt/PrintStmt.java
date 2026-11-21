@@ -8,7 +8,7 @@ import interpreter.model.value.IValue;
 public record PrintStmt(IExp exp) implements IStmt {
     @Override
     public PrgState execute(PrgState prgState) throws MyException {
-        IValue val=exp.eval(prgState.getSymTable());
+        IValue val=exp.eval(prgState.getSymTable(), prgState.getHeap());
         prgState.getOut().add(val);
         return prgState;
     }

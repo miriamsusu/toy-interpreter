@@ -40,7 +40,6 @@ class FileStmtTest {
 
     @AfterEach
     void closeOpenFiles() throws IOException {
-        // on Windows an open reader stops @TempDir from deleting the folder
         for (BufferedReader reader : state.getFileTable().toMap().values())
             reader.close();
     }
