@@ -5,6 +5,7 @@ import interpreter.model.value.IValue;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 public class MyHeap implements IHeap {
     private Map<Integer, IValue> heap = new HashMap<>();
@@ -18,27 +19,42 @@ public class MyHeap implements IHeap {
 
     @Override
     public IValue get(int address) throws ADTException {
-        return null;
+        if(!heap.containsKey(address)){
+            throw new ADTException("Key does not exist");
+
+        }
+        return heap.get(address);
     }
 
     @Override
     public void update(int address, IValue value) throws ADTException {
-
+        if(!heap.containsKey(address)){
+            throw new ADTException("Key does not exist");
+        }
+        heap.put(address,value);
     }
 
     @Override
     public boolean isDefined(int address) {
-        return false;
+        if(heap.containsKey(address))
+            return true;
+        else
+            return false;
     }
 
     @Override
     public Map<Integer, IValue> getContent() {
-        return Map.of();
+        return Map.copyOf(heap);
     }
 
     @Override public void setContent(Map<Integer, IValue> content) {
         heap = new HashMap<>(content);
     }
-    // TODO: get and update (a missing address -> ADTException), isDefined,
-    // getContent (Map.copyOf(heap)), toString
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        for (var entry : heap.entrySet())
+            sb.append(entry.getKey()).append(" -> ").append(entry.getValue()).append("\n");
+        return sb.toString();
+    }
 }
