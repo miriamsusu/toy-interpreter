@@ -54,7 +54,6 @@ public class PrgState {
         sb.append("FileTable:\n");
         fileTable.toMap().keySet().forEach(f -> sb.append(f.val()).append('\n'));
         sb.append("Heap:\n");
-        sb.append("Heap:\n");
         new TreeMap<>(heap.getContent()).forEach((address, value) ->
                 sb.append(address).append(" --> ").append(value).append('\n'));
         return sb.toString();
@@ -62,6 +61,6 @@ public class PrgState {
     }
     @Override
     public String toString() {
-        return "ExeStack: " + exeStack + "\nSymTable:\n" + symTable + "Out: " + out + "File table: "+fileTable+"\n";
+        return "ExeStack: " + exeStack + "\nSymTable:\n" + symTable + "Out: " + out + "File table: "+fileTable+"Heap"+heap+"\n";
     }
 }

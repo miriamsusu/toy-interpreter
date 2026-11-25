@@ -8,9 +8,11 @@ import interpreter.model.adt.MyList;
 import interpreter.model.adt.MyStack;
 import interpreter.model.type.BoolType;
 import interpreter.model.type.IntType;
+import interpreter.model.type.RefType;
 import interpreter.model.type.StringType;
 import interpreter.model.value.BoolValue;
 import interpreter.model.value.IntValue;
+import interpreter.model.value.RefValue;
 import interpreter.model.value.StringValue;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -48,6 +50,12 @@ class VarDeclStmtTest {
     void stringDefaultsToEmptyString() throws MyException {
         new VarDeclStmt("s", new StringType()).execute(state);
         assertEquals(new StringValue(""), state.getSymTable().lookup("s"));
+    }
+
+    @Test
+    void refDefaultsToNullAddressWithTheLocationType() throws MyException {
+        new VarDeclStmt("r", new RefType(new RefType(new IntType()))).execute(state);
+        assertEquals(new RefValue(0, new RefType(new IntType())), state.getSymTable().lookup("r"));
     }
 
     @Test
