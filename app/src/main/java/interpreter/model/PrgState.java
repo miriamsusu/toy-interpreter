@@ -61,6 +61,10 @@ public class PrgState {
     }
     @Override
     public String toString() {
-        return "ExeStack: " + exeStack + "\nSymTable:\n" + symTable + "Out: " + out + "File table: "+fileTable+"Heap"+heap+"\n";
+        return "ExeStack: " + exeStack + "\n"
+                + "SymTable:\n" + symTable
+                + "Out: " + out + "\n"
+                + "FileTable: " + fileTable.toMap().keySet() + "\n"
+                + "Heap: " + new TreeMap<>(heap.getContent()) + "\n";
     }
 }
