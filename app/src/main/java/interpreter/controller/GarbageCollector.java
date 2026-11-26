@@ -11,7 +11,6 @@ import java.util.stream.Collectors;
 
 public final class GarbageCollector {
     private GarbageCollector() {}
-    /** The addresses that occur in the RefValues of the SymTable. */
     public static Set<Integer> getAddrFromSymTable(Collection<IValue> symTableValues) {
         return symTableValues.stream()
                 .filter(v -> v instanceof RefValue)
